@@ -1,0 +1,40 @@
+#include <stdio.h>
+#include <limits.h>
+int min(int a, int b) {
+    return (a < b) ? a : b;
+}
+int tsp(int graph[][4], int path[], int visited[], int pos, int n, int count, int cost, int ans) {
+    if (count == n && graph[pos][0]) {
+        return min(ans, cost + graph[pos][0]);
+    }
+    for (int i = 0; i < n; i++) {
+        if (!visited[i] && graph[pos][i]) {
+            visited[i] = 1;
+            ans = tsp(graph, path, visited, i, n, count + 1, cost + graph[pos][i], ans);
+            visited[i] = 0;
+        }
+    }
+    return ans;
+}
+int main() {
+    int graph[4][4] = {
+        {0, 10, 15, 20},
+        {10, 0, 35, 25},
+        {15, 35, 0, 30},
+        {20, 25, 30, 0}
+    };
+    int n = 4;  
+    int path[n];
+    int visited[n];
+    for (int i = 0; i < n; i++) {
+        visited[i] = 0;
+        path[i] = -1;
+    }
+    visited[0] = 1;  
+    int ans = INT_MAX;
+    ans = tsp(graph, path, visited, 0, n, 1, 0, ans);
+    printf("Name : P. Koteswara Rao\n");
+    printf("Reg no : 192211581\n");
+    printf("The minimum cost of the tour is %d\n", ans);
+    return 0;
+}
