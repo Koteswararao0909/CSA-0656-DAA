@@ -1,0 +1,31 @@
+#include <stdio.h>
+void printPascalsTriangle(int n);
+int main() {
+    printf("Name : P. Koteswara Rao\n");
+    printf("Reg no : 192211581\n");
+    int n = 5;   
+    printPascalsTriangle(n);
+
+    return 0;
+} 
+void printPascalsTriangle(int n) {
+    int pascal[n][n]; 
+    for (int line = 0; line < n; line++) {
+        for (int i = 0; i <= line; i++) {
+            if (i == 0 || i == line) {
+                pascal[line][i] = 1; 
+            } else {
+                pascal[line][i] = pascal[line - 1][i - 1] + pascal[line - 1][i];
+            }
+        }
+    }
+    for (int line = 0; line < n; line++) {
+        for (int space = 0; space < n - line - 1; space++) {
+            printf("  ");
+        }
+        for (int i = 0; i <= line; i++) {
+            printf("%4d", pascal[line][i]);
+        }
+        printf("\n");
+    }
+}
